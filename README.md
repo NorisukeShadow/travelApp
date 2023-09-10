@@ -9,17 +9,20 @@
    コマンドプロンプト(mac)、PowerShell(windows)のアプリケーションを開く
    フォルダを作成するファイルの場所へ移動する
    ・使用するコマンド
+   
      ``` ls ``` ... 今いるフォルダの中身を表示
+   
      ``` cd <フォルダ名> ``` ... 特定のフォルダへ移動
+   
      ``` cd .. ``` ... ルート（最も階層の低い）のフォルダへ移動
 
-2. プロジェクトをクローンする
+3. プロジェクトをクローンする
    ```
    $ git clone https://github.com/NorisukeShadow/travelApp.git
    $ cd travelApp
    ```
 
-3. pythonで仮想環境を作成
+4. pythonで仮想環境を作成
    myvenvという名前の仮想環境を作成し、作成した仮想環境を起動する
    ```
    $ python3 -m venv myvenv
@@ -27,12 +30,12 @@
    ```
     ```(myvenv)```という表記が出ていたら成功
 
-4. djangoのインストール
+5. djangoのインストール
    ```
    $ pip3 install django==4.2.5
    ```
 
-5. アプリケーションをローカルで起動
+6. アプリケーションをローカルで起動
    ```
    $ python3 manage.py startapp travel
    ```
