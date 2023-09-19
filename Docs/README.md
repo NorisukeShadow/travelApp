@@ -44,3 +44,7 @@
      - ` $ git add <ファイルのパス>`により、特定のファイルのみ一時保存することが可能
      - ` $ git commit -m <編集内容の説明>`で一時保存した変更内容を保存する
      - 編集の説明は、自分や他の人が見返したときにどのような変更をしたのかがわかるように書く（例：edit home 画面）
+
+## 画面編集の方法
+
+[こちら](https://docs.google.com/document/d/1gHPzJUdf2S9dhi_IWDlF9UU0HQyR2InUitMLQAkkfdw/edit?usp=sharing)のドキュメントを参照
