@@ -28,3 +28,8 @@ class SignupView(CreateView):
 class TestView(TemplateView):
     # テストビュー
     template_name = "test.html"
+
+
+class FormView(TemplateView):
+    # テストビュー
+    template_name = "form.html"
