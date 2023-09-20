@@ -4,39 +4,106 @@
     <title>NorisukeTravel</title>
   </head>
   <body>
-    <h1>Schedule</h1>
+    <h2>検索結果</h2>
 
-    <h2>Events</h2>
-    <ul>
+     <!-- 検索フォーム -->
+     <form id="search-form">
+        <label for="search-input">場所を検索:</label>
+        <input type="text" id="search-input" placeholder="キーワードを入力">
+        <button type="submit">検索</button>
+      </form>
+
+    <ul id="event-list">
       {% for event in events %}
-      <li>
-        {{ event.title }} - {{ event.start_time }} to {{ event.end_time }}
-      </li>
+      <div class="box">
+        <li>
+          {{ event.name }} - {{ event.start_time }} to {{ event.end_time }}
+        </li>
+        <ul>
+          {% for location in event.locations %}
+          <li>{{ location }}</li>
+          {% endfor %}
+      </div>
       {% endfor %}
     </ul>
   </body>
 </html>
 <script>
-    events =[
+  events = [
     {
-        "name": "Norisuke",
-        "locations": ["鎌倉駅", "鎌倉大仏", "鶴岡八幡宮", "鎌倉駅"],
-        "start_time": "10:00",
-        "end_time": "18:00"
+      name: "Norisuke",
+      locations: [
+        "成田空港",
+        "東京駅",
+        "東京タワー",
+        "浅草寺",
+        "東京駅",
+        "成田空港",
+      ],
+      start_time: "10:00",
+      end_time: "18:00",
     },
     {
-        "name": "Ando",
-        "locations": ["博多駅", "PayPayドーム", "太宰府天満宮", "天神駅", "博多駅"],
-        "start_time": "8:00",
-        "end_time": "18:00"
+      name: "Norisuke",
+      locations: ["鎌倉駅", "鎌倉大仏", "鶴岡八幡宮", "鎌倉駅"],
+      start_time: "10:00",
+      end_time: "18:00",
     },
     {
-        "name": "Norisuke",
-        "locations": ["新千歳空港", "札幌駅", "クラーク像", "新千歳空港"],
-        "start_time": "12:00",
-        "end_time": "20:00"
+      name: "Ando",
+      locations: ["博多駅", "PayPayドーム", "太宰府天満宮", "天神駅", "博多駅"],
+      start_time: "8:00",
+      end_time: "18:00",
     },
     {
-        
-    }
-]
+      name: "Norisuke",
+      locations: ["新千歳空港", "札幌駅", "クラーク像", "新千歳空港"],
+      start_time: "12:00",
+      end_time: "20:00",
+    },
+  ];
+
+  const eventList = document.getElementById("event-list");
+  const searchForm = document.getElementById("search-form");
+  const searchInput = document.getElementById("search-input");
+
+
+  // イベントの表示を更新する関数
+  function updateEventList(keyword) {
+    eventList.innerHTML = ""; // 一旦リストをクリア
+
+    events.forEach((event) => {
+      // キーワードがイベントの場所（locations）に含まれている場合のみ表示
+      if (event.locations.some((location) => location.includes(keyword))) {
+        const eventDiv = document.createElement("div");
+        eventDiv.classList.add("box");
+
+        const eventInfo = document.createElement("p");
+        eventInfo.textContent = `${event.name} - ${event.start_time} to ${event.end_time}`;
+        eventDiv.appendChild(eventInfo);
+
+        const locationList = document.createElement("ul");
+        event.locations.forEach((location) => {
+          const locationItem = document.createElement("li");
+          locationItem.textContent = location;
+          locationList.appendChild(locationItem);
+        });
+
+        eventDiv.appendChild(locationList);
+
+        eventList.appendChild(eventDiv);
+      }
+    });
+  }
+
+  // フォームの送信時に検索を実行
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const keyword = searchInput.value.trim(); // 入力値を取得してトリム
+    updateEventList(keyword);
+  });
+
+  // ページロード時に初期表示を実行
+  updateEventList("");
+</script>
+```
