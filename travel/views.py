@@ -33,3 +33,18 @@ class TestView(TemplateView):
 class FormView(TemplateView):
     # テストビュー
     template_name = "form.html"
+
+
+class scheduleView(TemplateView):
+    # スケジュールビュー
+    template_name = "schedule.html"
+
+
+class resultPlaceView(TemplateView):
+    # スケジュールビュー
+    template_name = "resultPlace.html"
+
+
+class resultPersonView(TemplateView):
+    # スケジュールビュー
+    template_name = "resultPerson.html"

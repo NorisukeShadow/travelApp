@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Schedule</title>
+  </head>
+  <body>
+    <h1>Schedule</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Add Event</button>
+    </form>
+    <h2>Events</h2>
+    <ul>
+      {% for event in events %}
+      <li>
+        {{ event.title }} - {{ event.start_time }} to {{ event.end_time }}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
