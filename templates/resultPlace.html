@@ -2,30 +2,32 @@
 <html>
   <head>
     <title>NorisukeTravel</title>
+    <style>
+      .box-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3列のグリッドを作成 */
+        gap: 10px; /* グリッド要素間の隙間 */
+      }
+      .box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
     <h2>検索結果</h2>
 
-     <!-- 検索フォーム -->
-     <form id="search-form">
-        <label for="search-input">場所を検索:</label>
-        <input type="text" id="search-input" placeholder="キーワードを入力">
-        <button type="submit">検索</button>
-      </form>
+    <!-- 検索フォーム -->
+    <form id="search-form">
+      <label for="search-input">場所を検索:</label>
+      <input type="text" id="search-input" placeholder="キーワードを入力" />
+      <button type="submit">検索</button>
+    </form>
 
-    <ul id="event-list">
-      {% for event in events %}
-      <div class="box">
-        <li>
-          {{ event.name }} - {{ event.start_time }} to {{ event.end_time }}
-        </li>
-        <ul>
-          {% for location in event.locations %}
-          <li>{{ location }}</li>
-          {% endfor %}
-      </div>
-      {% endfor %}
-    </ul>
+    <div id="event-list">
+      <!-- Events will be dynamically added here -->
+    </div>
   </body>
 </html>
 <script>
@@ -40,26 +42,51 @@
         "東京駅",
         "成田空港",
       ],
+      start_time: "8:00",
+      end_time: "20:00",
+      image_url: "/media/images/IMG_01.JPG",
+    },
+    {
+      name: "Aika",
+      locations: [
+        "成田空港",
+        "東京駅",
+        "東京スカイツリー",
+        "渋谷",
+        "東京駅",
+        "成田空港",
+      ],
       start_time: "10:00",
       end_time: "18:00",
+      image_url: "/media/images/IMG_7438.JPG",
     },
     {
       name: "Norisuke",
       locations: ["鎌倉駅", "鎌倉大仏", "鶴岡八幡宮", "鎌倉駅"],
       start_time: "10:00",
       end_time: "18:00",
+      image_url: "/media/images/IMG_01.JPG",
     },
     {
       name: "Ando",
       locations: ["博多駅", "PayPayドーム", "太宰府天満宮", "天神駅", "博多駅"],
       start_time: "8:00",
       end_time: "18:00",
+      image_url: "/media/images/IMG_7407.JPG",
     },
     {
       name: "Norisuke",
       locations: ["新千歳空港", "札幌駅", "クラーク像", "新千歳空港"],
       start_time: "12:00",
       end_time: "20:00",
+      image_url: "/media/images/IMG_01.JPG",
+    },
+    {
+      name: "Aika",
+      locations: ["長崎駅", "五島列島", "ハウステンボス", "長崎駅"],
+      start_time: "9:00",
+      end_time: "18:00",
+      image_url: "/media/images/IMG_7438.JPG",
     },
   ];
 
@@ -67,10 +94,12 @@
   const searchForm = document.getElementById("search-form");
   const searchInput = document.getElementById("search-input");
 
-
   // イベントの表示を更新する関数
   function updateEventList(keyword) {
     eventList.innerHTML = ""; // 一旦リストをクリア
+
+    const boxContainer = document.createElement("div");
+    boxContainer.classList.add("box-container"); // 新しい要素にbox-containerクラスを追加
 
     events.forEach((event) => {
       // キーワードがイベントの場所（locations）に含まれている場合のみ表示
@@ -78,9 +107,22 @@
         const eventDiv = document.createElement("div");
         eventDiv.classList.add("box");
 
+        // 新しい要素を作成し、横並びにするためのスタイルを適用
+        const eventInfoContainer = document.createElement("div");
+        eventInfoContainer.style.display = "flex"; // 横並びにする
+        eventInfoContainer.style.alignItems = "center"; // 中央に配置
+
+        // 画像を追加
+        const eventImage = document.createElement("img");
+        eventImage.src = event.image_url; // 画像のURLを設定
+        eventImage.alt = `${event.name}の画像`; // 画像の代替テキスト
+        eventImage.style.width = "40px"; // 幅を20pxに設定
+        eventImage.style.height = "40px";
+        eventInfoContainer.appendChild(eventImage);
+
         const eventInfo = document.createElement("p");
-        eventInfo.textContent = `${event.name} - ${event.start_time} to ${event.end_time}`;
-        eventDiv.appendChild(eventInfo);
+        eventInfo.textContent = `　${event.name} - ${event.start_time} to ${event.end_time}`;
+        eventInfoContainer.appendChild(eventInfo);
 
         const locationList = document.createElement("ul");
         event.locations.forEach((location) => {
@@ -89,11 +131,18 @@
           locationList.appendChild(locationItem);
         });
 
+        locationList.style.marginLeft = "25px";
+        locationList.style.marginBottom = "25px";
+        eventImage.style.borderRadius = "50%";
+
+        eventDiv.appendChild(eventInfoContainer);
         eventDiv.appendChild(locationList);
 
-        eventList.appendChild(eventDiv);
+        boxContainer.appendChild(eventDiv);
       }
     });
+
+    eventList.appendChild(boxContainer);
   }
 
   // フォームの送信時に検索を実行
@@ -106,4 +155,3 @@
   // ページロード時に初期表示を実行
   updateEventList("");
 </script>
-```
