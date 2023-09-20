@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Schedule</title>
-</head>
-<body>
+  <head>
+    <title>NorisukeTravel</title>
+  </head>
+  <body>
     <h1>Schedule</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Event</button>
-    </form>
+
     <h2>Events</h2>
     <ul>
-        {% for event in events %}
-            <li>{{ event.title }} - {{ event.start_time }} to {{ event.end_time }}</li>
-        {% endfor %}
+      {% for event in events %}
+      <li>
+        {{ event.title }} - {{ event.start_time }} to {{ event.end_time }}
+      </li>
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>
+<script>
+    events =[
+    {
+        "name": "Norisuke",
+        "locations": ["鎌倉駅", "鎌倉大仏", "鶴岡八幡宮", "鎌倉駅"],
+        "start_time": "10:00",
+        "end_time": "18:00"
+    },
+    {
+        "name": "Ando",
+        "locations": ["博多駅", "PayPayドーム", "太宰府天満宮", "天神駅", "博多駅"],
+        "start_time": "8:00",
+        "end_time": "18:00"
+    },
+    {
+        "name": "Norisuke",
+        "locations": ["新千歳空港", "札幌駅", "クラーク像", "新千歳空港"],
+        "start_time": "12:00",
+        "end_time": "20:00"
+    },
+    {
+        
+    }
+]
